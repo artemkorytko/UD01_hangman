@@ -4,53 +4,48 @@ namespace hangman
 {
     internal class Program
     {
-        
         private static void Main(string[] args)
         {
-            int _counter = 5;
+            int _counter = 0;
+            int _counterMin = 0;
+            int _counterMax = 5;
+
             Print p = new Print();
+
+            Console.Write("Enter number from {0} to {1}: ", _counterMin, _counterMax);
+            try
+            {
+                _counter = Int32.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Format exception, number set as {0}", _counter);
+            }
+
+            _counter = Constraint(_counter, _counterMin, _counterMax);
+
+            Console.WriteLine();
 
             p.PrintFor(_counter);
             p.PrintWhile(_counter);
+            p.PrintDoWhile(_counter);
             p.PrintArray(_counter);
             
         }
-    }
 
-    internal class Print
-    {
-        public void PrintFor(int counter)
+        private static int Constraint(int value, int from, int to)
         {
-            for(int i = 0; i < counter; i++)
+            if (value < from)
             {
-                Console.WriteLine("Printing FOR: {0}", i);
+                value = from;
+                Console.WriteLine("Limited on {0}", from);
             }
-            Console.WriteLine();
-        }
-
-        public void PrintWhile(int counter)
-        {
-            while(counter > 0)
+            if (value > to)
             {
-                Console.WriteLine("Printing WHILE: {0}", counter);
-                counter--;
+                value = to;
+                Console.WriteLine("Limited on {0}", to);
             }
-            Console.WriteLine();
-        }
-
-        public void PrintArray(int counter)
-        {
-            int[] array = new int[counter];
-            for(int i = 0;i < counter;i++)
-            {
-                array[i] = i;
-            }
-            Console.Write("Array: ");
-            foreach(int i in array)
-            {
-                Console.Write("{0}, ", i);
-            }
-            Console.WriteLine();
+            return value;
         }
     }
 }

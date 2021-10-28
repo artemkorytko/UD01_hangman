@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31808.319
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hangman", "hangman\hangman.csproj", "{21D01A6C-AF4B-4922-B6F0-97396A8AEFB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstTestConsoleApp", "hangman\FirstTestConsoleApp.csproj", "{21D01A6C-AF4B-4922-B6F0-97396A8AEFB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman", "ConsoleApp1\Hangman.csproj", "{AA58D09B-16CE-4CF9-A88D-98790B2BCC4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{21D01A6C-AF4B-4922-B6F0-97396A8AEFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21D01A6C-AF4B-4922-B6F0-97396A8AEFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21D01A6C-AF4B-4922-B6F0-97396A8AEFB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA58D09B-16CE-4CF9-A88D-98790B2BCC4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA58D09B-16CE-4CF9-A88D-98790B2BCC4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA58D09B-16CE-4CF9-A88D-98790B2BCC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA58D09B-16CE-4CF9-A88D-98790B2BCC4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -35,13 +35,13 @@ namespace HangMan
                 //игра
                 while (errors > 0 && opennedLetters != stringWord.Length)
                 {
-                    Console.WriteLine("Введи букву");
+                    Console.WriteLine("Введи русскую букву нижнего регистра");
                     string inputString = Console.ReadLine();
 
                     if (inputString.Length > 1 || !Char.IsLetter(inputString[0]))
                     {
                         Console.Clear();
-                        Console.WriteLine("Ясно было сказано, что нужно ввести БУКВУ!!! Глупость не поощряется и ты лишаешься одной жизни");
+                        Console.WriteLine("Ясно было сказано, что нужно ввести РУССКУЮ БУКВУ НИЖНЕГО РЕГИСТРА!!! Глупость проицается и ты лишаешься одной жизни");
                         --errors;
                         Console.WriteLine($"И у тебя осталось {errors} попыток.");
                         continue;

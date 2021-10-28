@@ -15,12 +15,13 @@ namespace ConsoleApp1
 
             Console.WriteLine("Hello! Let's play game!");
 
+            //написали игровой движок
             while (true)
             {
                 //загадываем слово
-                string stringWord = words[random.Next(0, words.Length)];
+                
                 Console.WriteLine(stringWord);
-                char[] charWord = stringWord.ToCharArray();
+                
                 Console.WriteLine(charWord.Length);
 
                 //создаем счетчик
@@ -28,7 +29,7 @@ namespace ConsoleApp1
                 int opennedLetters = 0;
 
                 //сформируем строку для отображения процесса
-                char[] viewWord = new char[stringWord.Length];
+                
                 for (int i = 0; i < viewWord.Length; i++)
                 {
                     viewWord[i] = '*';
@@ -79,6 +80,7 @@ namespace ConsoleApp1
 
                 }
             }
+
         }
     }
     

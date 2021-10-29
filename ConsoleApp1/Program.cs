@@ -12,72 +12,46 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            HangmanClass hWord = new HangmanClass(path);
+            HangmanClass word = new HangmanClass(path);
+            GameInterface gameInterface = new GameInterface();
             
-            
-            hWord.GenerateWord();
-
             while (true)
             {
-
                 int errors = maxErrors;
-                int openedLetters = 0;
                 
+                word.GenerateWord();
+                
+                gameInterface.Print(new string(word.viewWord), errors);
+                
+                //подсказка в начале
+                //Console.WriteLine(word.word);
 
-                int viewWordPositionTop = Console.CursorTop;
-                
-                Console.Write(hWord.viewWord);
-                Console.WriteLine();
-                
-                List<char> charList = new List<char>();
-                
-                charList.Clear();
-
-                while (errors > 0 && openedLetters != hWord.word.Length)
+                while (errors > 0 && word.GetOpenedLetters != word.word.Length)
                 {
-                    Console.Write("Введите букву: ");
-                    
                     string inputString = Console.ReadLine();
 
-                    if (inputString.Length == 0 || !Char.IsLetter(inputString[0]))
+                    if (inputString.Length == 0 || inputString.Length > 1 || !Char.IsLetter(inputString[0]))
                     {
-                        Console.WriteLine("Неправильный ввод!");
+                        gameInterface.Print(errors, 0, GameInterface.GameEvent.Error);
                         continue;
                     }
 
-                    bool isLetterExist = true;
-
-                    for (int i = 0; i < hWord.charWord.Length; i++)
-                    {
-                        if (hWord.charWord[i] == inputString[0] && !charList.Contains(hWord.charWord[i]))
-                        {
-                            charList.Add(hWord.charWord[i]);
-                            Console.SetCursorPosition(i, viewWordPositionTop);
-                            Console.WriteLine(hWord.charWord[i]);
-                            openedLetters++;
-                            isLetterExist = false;
-                        }
-                    }
-
-                    if (isLetterExist)
+                    if (!word.CheckLetter(inputString[0]))
                     {
                         errors--;
-                        Console.WriteLine($"Такой буквы нету! Осталось {errors} попыток!");
-                        Console.SetCursorPosition(0, viewWordPositionTop + 1);
+                        gameInterface.Print(errors, 1, GameInterface.GameEvent.Error);
+                    }
+                    else
+                    {
+                        gameInterface.Print(new string(word.viewWord), errors);
                     }
                 }
-                Console.SetCursorPosition(0, viewWordPositionTop + 3);
-
-                if (errors == 0)
-                {
-                    Console.WriteLine("Проиграл!");
-                }
+                if (errors > 0)
+                    gameInterface.Print(new string(word.viewWord), errors, 0, GameInterface.GameEvent.Win);
                 else
-                {
-                    Console.WriteLine("Пробедил!");
-                }
+                    gameInterface.Print(new string(word.viewWord), errors, 0, GameInterface.GameEvent.Fail);
 
-                Console.WriteLine("\n\nНажми ESC что-бы выйти\nEnter для новой игры");
+                //выход из игры
                 ConsoleKeyInfo key = Console.ReadKey();
                 if(key.Key == ConsoleKey.Escape)
                     break;

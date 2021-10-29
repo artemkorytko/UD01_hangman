@@ -38,7 +38,7 @@ namespace ConsoleApp
                     switch(errorCode)
                     {
                         case 1:
-                            Console.WriteLine("Такая буква уже есть");
+                            Console.WriteLine("Не правильная буква");
                             break;
                         default:
                             Console.WriteLine();

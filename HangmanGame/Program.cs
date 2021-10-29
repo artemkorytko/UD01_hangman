@@ -6,7 +6,7 @@ namespace ConsoleApp
 {
     internal class Program
     {
-        public static string path = @"D:\Unity\hangman\ConsoleApp1\word_rus.txt";
+        public static string path = @"D:\Unity\hangman\word_rus.txt";
 
         private const int maxErrors = 10;
 

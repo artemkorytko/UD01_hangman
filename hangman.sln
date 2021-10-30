@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstConsoleApp", "FirstCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangmanGame", "HangmanGame\HangmanGame.csproj", "{AA58D09B-16CE-4CF9-A88D-98790B2BCC4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCalc", "ConsoleCalc\ConsoleCalc.csproj", "{5F188FC3-09CF-4507-8613-90AFA6E3C184}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AA58D09B-16CE-4CF9-A88D-98790B2BCC4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA58D09B-16CE-4CF9-A88D-98790B2BCC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA58D09B-16CE-4CF9-A88D-98790B2BCC4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F188FC3-09CF-4507-8613-90AFA6E3C184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F188FC3-09CF-4507-8613-90AFA6E3C184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F188FC3-09CF-4507-8613-90AFA6E3C184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F188FC3-09CF-4507-8613-90AFA6E3C184}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

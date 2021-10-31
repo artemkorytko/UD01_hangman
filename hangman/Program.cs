@@ -10,35 +10,20 @@ namespace ConsoleApp1
         private const int maxErrors = 10;
         static void Main(string[] args)
         {
-            string[] words = File.ReadAllLines(path);
-            Random random = new Random();
-
             Console.WriteLine("Hello! Let's play game!");
+
+            handclass word = new handclass(path);
 
             //написали игровой движок
             while (true)
             {
-                //загадываем слово
-                
-                Console.WriteLine(stringWord);
-                
-                Console.WriteLine(charWord.Length);
-
-                //создаем счетчик
+                word.GenerateWord();
                 int errors = maxErrors;
-                int opennedLetters = 0;
 
-                //сформируем строку для отображения процесса
-                
-                for (int i = 0; i < viewWord.Length; i++)
-                {
-                    viewWord[i] = '*';
-                }
-
-                Console.WriteLine($"Загадано слово из {stringWord.Length} букв. Отгадай его за {errors} попыток");
+                Console.WriteLine($"Загадано слово из {word.WordLettersCount} букв. Отгадай его за {errors} попыток");
 
                 //цикл партии
-                while (errors > 0 && opennedLetters != stringWord.Length)
+                while (errors > 0 && !word.IsSolved)
                 {
                     Console.WriteLine("Введите букву");
                     string inputString = Console.ReadLine();
@@ -50,21 +35,10 @@ namespace ConsoleApp1
                         continue;
                     }
 
-                    bool isLetterExist = false;
-                    for (int i = 0; i < charWord.Length; i++)
-                    {
-                        if (charWord[i] == inputString[0])
-                        {
-                            opennedLetters = opennedLetters + 1;
-                            viewWord[i] = inputString[0];
-                            charWord[i] = ' ';
-                            isLetterExist = true;
-                           
-                        }
-                    }
+                    
 
                     Console.Clear();
-                    if(isLetterExist)
+                    if(word.CheckLetter(inputString[0]))
                     {
                         Console.WriteLine("Угадал! Есть такая буква!");
                     }
@@ -74,7 +48,8 @@ namespace ConsoleApp1
                         Console.WriteLine($"Такой буквы нет! Осталось попыток: {errors}");
 
                     }
-                    Console.WriteLine("Чтобы продолжить нажми \"Ввод\"");
+
+                    Console.WriteLine(word.ViewWord);
                     Console.Read();
                     Console.Clear();
 

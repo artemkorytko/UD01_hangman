@@ -13,6 +13,7 @@ namespace ConsoleCalc
                                  "2. Input via ENTER (an equal sign \'=\' is expected in end)\n" +
                                  "The transition between modes is semi-automatic\n\n" +
                                  "Features:\n" +
+                                 "All words/letters will be equal to zero\n" +
                                  "\'.. + + ..\' is equal to \'.. + 0 + ..\'\n\n" +
                                  "Press any key to start";
             
@@ -25,18 +26,25 @@ namespace ConsoleCalc
                 Console.WriteLine("Enter your example: ");
                 string example = Console.ReadLine();
                 
-                if (example.ConatainOperators())
-                    Console.WriteLine("Answer: {0}", _calculate.Init(example));
-                else
+                if (!example.ConatainOperators())
                 {
+                    Console.Clear();
+                    var consoleColorBuffer = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine("Input via ENTER mode!");
+                    Console.ForegroundColor = consoleColorBuffer;
+                    Console.WriteLine(example);
                     example = Functions.WaitForEqualsSign(example);
                     Console.Clear();
-                    Console.WriteLine($"You\'r example:\n {example}");
+                    string exampleBuffer = example.TrimEnd('=');
+                    Console.WriteLine($"You\'r example: \n{exampleBuffer}");
                     Console.WriteLine("Answer: {0}", _calculate.Init(example));
                 }
+                else
+                    Console.WriteLine("Answer: {0}", _calculate.Init(example));
                     
                 //program exit
-                Console.WriteLine("ESC to exit / any key to repeat");
+                Console.WriteLine("\nESC to exit\nAny key to repeat");
                 ConsoleKeyInfo key = Console.ReadKey();
                 if(key.Key == ConsoleKey.Escape)
                     break;

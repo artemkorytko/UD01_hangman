@@ -1,40 +1,57 @@
 ﻿using System;
-using System.Linq;
 
 namespace ConsoleCalc
 {
     public class Calculate
     {
-        public void Init()
+        public double Init(string example)
         {
-            Console.WriteLine("Enter your example: ");
-
-            string example = Console.ReadLine();
+            example = example.Replace('.', ',');
+            example = example.Replace('=', ' ');
             
             double[] numArr = GetNumsArr(example);
-            char[] opsArr = GetOperators(example, numArr);
-
+            char[] opsArr = GetOperators(example);
             
-            //debug
-            foreach (var VARIABLE in numArr)
-            {
-                Console.Write($"{VARIABLE} ");
-            }
-            Console.WriteLine();
-            foreach (var VARIABLE in opsArr)
-            {
-                Console.Write($"{VARIABLE} ");
-            }
+            return Calculation(numArr, opsArr);
         }
 
-        private char[] GetOperators(string example, double[] numArr)
+        private double Calculation(double[] numArr, char[] opsArr)
+        {
+            int i = 0;
+            while(opsArr.Length > 0)
+            {
+                switch (opsArr[i])
+                {
+                    case '+' :
+                        numArr[i] = Add(numArr[i], numArr[i + 1]);
+                        break;
+                    case '-' :
+                        numArr[i] = Take(numArr[i], numArr[i + 1]);
+                        break;
+                    case '*' :
+                        numArr[i] = Multiply(numArr[i], numArr[i + 1]);
+                        break;
+                    case '/' :
+                        numArr[i] = Divide(numArr[i], numArr[i + 1]);
+                        break;
+                }
+                numArr = numArr.RemoveAt(i + 1);
+                opsArr = opsArr.RemoveAt(i);
+                
+            }
+            return numArr[0];
+        }
+
+        private char[] GetOperators(string example)
         {
             char[] ops;
-            double[] arr = numArr;
 
-            foreach (var VARIABLE in arr)
+            for (int i = 0; i < example.Length; i++)
             {
-                example = example.Replace(VARIABLE.ToString(), " ");
+                if (!example[i].IsOperator())
+                {
+                    example = example.Replace(example[i].ToString(), " ");
+                }
             }
             
             while (example.Contains(' '))
@@ -51,7 +68,6 @@ namespace ConsoleCalc
             char[] operators = {'+', '-', '*', '/',};
             string[] exampleArr;
 
-            example = example.Replace('.', ',');
 
             while (example.Contains(' '))
             {
@@ -61,18 +77,30 @@ namespace ConsoleCalc
             exampleArr = example.Split(operators);
             
             double[] numsArr = new double[exampleArr.Length];
+            int errors = 0;
 
-            for (int i = 0; i < exampleArr.Length; i++)
+            for (int i = 0; i < numsArr.Length; i++)
             {
+                
                 try
                 {
                     numsArr[i] = Convert.ToDouble(exampleArr[i]);
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Enter only numbers & operators\nIncorrect input replace to 0!");
+                    errors++;
                 }
+                
             }
+
+            if (errors > 0)
+            {
+                var consoleColorBuffer = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Enter only numbers & operators\nIncorrect input replace to \'0\' \nReplaced {errors} elements!");
+                Console.ForegroundColor = consoleColorBuffer;
+            }
+                
             
             return numsArr;
         }
@@ -87,12 +115,11 @@ namespace ConsoleCalc
         }
         private double Multiply(double first, double second)
         {
-            return first + second;
+            return first * second;
         }
         private double Divide(double first, double second)
         {
             return first / second;
         }
-        
     }
 }

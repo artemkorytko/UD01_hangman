@@ -1,3 +1,4 @@
+using System;
 
 namespace ConsoleCalc
 {
@@ -6,8 +7,44 @@ namespace ConsoleCalc
         internal static void Main()
         {
             Calculate _calculate = new Calculate();
+
+            string description = "This calculator works in two modes:\n" +
+                                 "1. Here is an example in one line\n" +
+                                 "2. Input via ENTER (an equal sign \'=\' is expected in end)\n" +
+                                 "The transition between modes is semi-automatic\n\n" +
+                                 "Features:\n" +
+                                 "\'.. + + ..\' is equal to \'.. + 0 + ..\'\n\n" +
+                                 "Press any key to start";
             
-            _calculate.Init();
+            Console.WriteLine(description);
+            Console.ReadKey();
+            Console.Clear();
+
+            while (true)
+            {
+                Console.WriteLine("Enter your example: ");
+                string example = Console.ReadLine();
+                
+                if (example.ConatainOperators())
+                    Console.WriteLine("Answer: {0}", _calculate.Init(example));
+                else
+                {
+                    example = Functions.WaitForEqualsSign(example);
+                    Console.Clear();
+                    Console.WriteLine($"You\'r example:\n {example}");
+                    Console.WriteLine("Answer: {0}", _calculate.Init(example));
+                }
+                    
+                //program exit
+                Console.WriteLine("ESC to exit / any key to repeat");
+                ConsoleKeyInfo key = Console.ReadKey();
+                if(key.Key == ConsoleKey.Escape)
+                    break;
+                else
+                    Console.Clear();
+            }
+            
         }
     }
+    
 }

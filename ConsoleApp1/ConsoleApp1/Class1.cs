@@ -43,8 +43,15 @@ namespace ConsoleApp1
                         Console.WriteLine("Вводите не более одной буквы за раз!");
                         continue;
                     }
-
                     Console.Clear();
+
+                    if(word.CheckLetterRepeat(inputString[0]))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Вы уже вводили эту букву");
+                        continue;
+                    }
+
                     if(word.CheckLetter(inputString[0]))
                     {
                         Console.WriteLine("Угадал!");
@@ -57,9 +64,27 @@ namespace ConsoleApp1
 
                     Console.WriteLine(word.ViewWord);
                 }
-                Console.WriteLine("Конец");
-                Console.WriteLine("Жми \"ввод\" - продолжить");
-                Console.Read();
+
+                if (errors > 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Победа!");
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Поражение :_(");
+                }
+                Console.WriteLine("\"д\" - продолжить, \"н\" - выход");
+                string endgame = Console.ReadLine();
+                switch (endgame)
+                {
+                    case "д":
+                        continue;
+                    case "н":
+                        Console.WriteLine("Досвидания");
+                        break;
+                }
                 Console.Clear();
             }
         }

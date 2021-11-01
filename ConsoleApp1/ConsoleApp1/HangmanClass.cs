@@ -14,6 +14,7 @@ namespace ConsoleApp1
         char[] charWord;
         char[] viewWord;
         int opennedLetters = 0;
+        List<char> letterIsopen = new List<char>();
         Random random = new Random();
 
         public int WordLettersCount => stringWord.Length;
@@ -37,19 +38,27 @@ namespace ConsoleApp1
                 viewWord[i] = '*';
             }
         }
+        public bool CheckLetterRepeat(char letterRepeat)
+        {
+            bool isLetterRepeat = false;
+            for (int i = 0; i < charWord.Length; i++)
+            {
+                if (letterIsopen.Contains(letterRepeat))
+                {
+                    isLetterRepeat = true;
+                    continue;
+                }
+            }
+            return isLetterRepeat;
+        }
+
         public bool CheckLetter(char letter)
         {
             bool isLetterExist = false;
+            letterIsopen.Add(letter);
             for (int i = 0; i < charWord.Length; i++)
             {
-                if (charWord[i] == ' ')
-                {
-                    Console.Clear();
-                    Console.WriteLine("Вы уже вводили эту букву");
-                    isLetterExist = true;
-                    continue;
-                }
-                else if (charWord[i] == letter)
+                if (charWord[i] == letter)
                 {
                     opennedLetters++;
                     viewWord[i] = letter;

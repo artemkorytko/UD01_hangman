@@ -7,7 +7,7 @@ namespace ConsoleApp1
     class Program
     {
         public static string path = @"C:\Users\USER\Documents\GitHub\hangman\word_rus.txt";
-        private const int maxErrors = 10;
+        private const int maxErrors = 30;
         static void Main(string[] args)
         {
             Console.WriteLine("Hello! Let's play game!");
@@ -24,6 +24,7 @@ namespace ConsoleApp1
 
                 //цикл партии
                 while (errors > 0 && !word.IsSolved)
+
                 {
                     Console.WriteLine("Введите букву");
                     string inputString = Console.ReadLine().ToLower();
@@ -58,15 +59,35 @@ namespace ConsoleApp1
                     }
 
                     Console.WriteLine(word.ViewWord);
+
+                    if ()
+
+                    {
+                        Console.WriteLine("Молодец!!! Ты отгадал слово!");
+                        Console.WriteLine("Жми\"ввод\" - продолжить");
+                        Console.ReadKey();
+
+                    }
+
+                    else
+
+                    {
+
+                        Console.WriteLine("Облом, ты проиграл! Попробуй еще!");
+                        Console.WriteLine("Жми\"ввод\" - продолжить");
+                        Console.ReadKey();
+                    }
+
+
                 }
 
             }
-            Console.WriteLine("Игра окончена");
-            Console.WriteLine("Жми\"ввод\" - продолжить");
+
             Console.Read();
             Console.Clear();
 
             
+
 
         }
     }

@@ -38,10 +38,14 @@ namespace HangMan
                     Console.WriteLine("Введи русскую букву нижнего регистра");
                     string inputString = Console.ReadLine();
 
+                    //Никаких проверок, просто всегда меняем регистр на нижний
+
+                    inputString = inputString.ToLower();
+
                     if (inputString.Length > 1 || !Char.IsLetter(inputString[0]))
                     {
                         Console.Clear();
-                        Console.WriteLine("Ясно было сказано, что нужно ввести РУССКУЮ БУКВУ НИЖНЕГО РЕГИСТРА!!! Глупость проицается и ты лишаешься одной жизни");
+                        Console.WriteLine("Ясно было сказано, что нужно ввести РУССКУЮ БУКВУ!! Глупость проицается и ты лишаешься одной жизни");
                         --errors;
                         Console.WriteLine($"И у тебя осталось {errors} попыток.");
                         continue;

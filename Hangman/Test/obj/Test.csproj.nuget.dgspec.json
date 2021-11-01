@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repositories\\hangman\\HangMan\\Test\\Test.csproj": {}
+    "D:\\Repositories\\hangman\\Hangman\\Test\\Test.csproj": {}
   },
   "projects": {
-    "D:\\Repositories\\hangman\\HangMan\\Test\\Test.csproj": {
+    "D:\\Repositories\\hangman\\Hangman\\Test\\Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repositories\\hangman\\HangMan\\Test\\Test.csproj",
+        "projectUniqueName": "D:\\Repositories\\hangman\\Hangman\\Test\\Test.csproj",
         "projectName": "Test",
-        "projectPath": "D:\\Repositories\\hangman\\HangMan\\Test\\Test.csproj",
+        "projectPath": "D:\\Repositories\\hangman\\Hangman\\Test\\Test.csproj",
         "packagesPath": "C:\\Users\\SanKeeCheese\\.nuget\\packages\\",
-        "outputPath": "D:\\Repositories\\hangman\\HangMan\\Test\\obj\\",
+        "outputPath": "D:\\Repositories\\hangman\\Hangman\\Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\SanKeeCheese\\AppData\\Roaming\\NuGet\\NuGet.Config",

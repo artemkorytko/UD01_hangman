@@ -8,9 +8,10 @@ namespace hangman_game
     class HangmanClass
     {
         string[] words;
-        string stringWord;
-        char[] charWord;
+        public string stringWord;
+        public char[] charWord;
         char[] viewWord;
+       
         int opennedLetters = 0;
         Random random = new Random();
         
@@ -39,10 +40,10 @@ namespace hangman_game
 
             for (int i = 0; i < charWord.Length; i++)
             {
-                if (charWord[i] == letter)
+                if (charWord[i] == Char.ToLower(letter))
                 {
                     opennedLetters++;
-                    viewWord[i] = letter;
+                    viewWord[i] = Char.ToLower(letter);
                     charWord[i] = ' ';
                     isLetterExist = true;
                 }

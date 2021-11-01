@@ -11,3 +11,4 @@ D:\Repositories\hangman\Calculator\Calculator\bin\Debug\netcoreapp3.1\Calculator
 D:\Repositories\hangman\Calculator\Calculator\obj\Debug\netcoreapp3.1\Calculator.dll
 D:\Repositories\hangman\Calculator\Calculator\obj\Debug\netcoreapp3.1\Calculator.pdb
 D:\Repositories\hangman\Calculator\Calculator\obj\Debug\netcoreapp3.1\Calculator.genruntimeconfig.cache
+D:\Repositories\hangman\Calculator\Calculator\obj\Debug\netcoreapp3.1\Calculator.csproj.AssemblyReference.cache

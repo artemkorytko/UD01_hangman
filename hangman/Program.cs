@@ -26,29 +26,24 @@ namespace ConsoleApp1
                 while (errors > 0 && !word.IsSolved)
                 {
                     Console.WriteLine("Введите букву");
-                    string inputString = Console.ReadLine();
+                    string inputString = Console.ReadLine().ToLower();
 
-                    if (inputString.Length == 0 || !Char.IsLetter(inputString[0]) || inputString.Length > 1)
+                    if (inputString.Length == 0 || !Char.IsLetter(inputString[0]))
                     {
                         Console.Clear();
                         Console.WriteLine("Вводи только буквы");
-                        Console.WriteLine("Вводи по одной букве за раз");
-                        continue;
-                    }
-
-                    string input = Console.ReadLine().ToLower();
-                    string v = Console.ReadLine().ToLower();
-                    input = v;
-
-                    if (input.Length == 0 || !Char.IsLetter(input[0]))
-                    {
-                        Console.Clear();
                         Console.WriteLine("Вводи только прописные буквы");
                         continue;
                     }
 
-                    
+                    if (inputString.Length > 1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Вводи по одной букве за раз");
+                        continue;
 
+                    }
+                    
                     Console.Clear();
                     if(word.CheckLetter(inputString[0]))
 

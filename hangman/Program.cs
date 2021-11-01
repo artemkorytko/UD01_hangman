@@ -60,27 +60,27 @@ namespace ConsoleApp1
 
                     Console.WriteLine(word.ViewWord);
 
-                    if ()
-
-                    {
-                        Console.WriteLine("Молодец!!! Ты отгадал слово!");
-                        Console.WriteLine("Жми\"ввод\" - продолжить");
-                        Console.ReadKey();
-
-                    }
-
-                    else
-
-                    {
-
-                        Console.WriteLine("Облом, ты проиграл! Попробуй еще!");
-                        Console.WriteLine("Жми\"ввод\" - продолжить");
-                        Console.ReadKey();
-                    }
+                    
 
 
                 }
 
+                if (word.IsSolved)
+
+                {
+                    Console.WriteLine("Молодец!!! Ты отгадал слово!");
+                    Console.WriteLine("Жми\"ввод\" - продолжить");
+                    Console.ReadKey();
+
+                }
+
+                else
+
+                {
+                    Console.WriteLine("Облом, ты проиграл! Попробуй еще");
+                    Console.WriteLine("Жми\"ввод\" - продолжить");
+                    Console.ReadKey();
+                }
             }
 
             Console.Read();

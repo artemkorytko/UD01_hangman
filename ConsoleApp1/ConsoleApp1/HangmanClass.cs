@@ -29,7 +29,7 @@ namespace ConsoleApp1
 
         public void GenerateWord()
         {
-            string stringWord = words[random.Next(0, words.Length)];
+            stringWord = words[random.Next(0, words.Length)];
             charWord = stringWord.ToCharArray();
             viewWord = new char[stringWord.Length];
             for (int i = 0; i < viewWord.Length; i++)
@@ -42,7 +42,14 @@ namespace ConsoleApp1
             bool isLetterExist = false;
             for (int i = 0; i < charWord.Length; i++)
             {
-                if (charWord[i] == letter)
+                if (charWord[i] == ' ')
+                {
+                    Console.Clear();
+                    Console.WriteLine("Вы уже вводили эту букву");
+                    isLetterExist = true;
+                    continue;
+                }
+                else if (charWord[i] == letter)
                 {
                     opennedLetters++;
                     viewWord[i] = letter;

@@ -29,6 +29,7 @@ namespace ConsoleApp1
                 {
                     Console.WriteLine("Введи букву");
                     string inputString = Console.ReadLine();
+                    inputString = inputString.ToLower();
 
                     if (inputString.Length == 0 || !Char.IsLetter(inputString[0]))
                     {
@@ -36,7 +37,12 @@ namespace ConsoleApp1
                         Console.WriteLine("Только буквы!");
                         continue;
                     }
-                    
+                    else if(inputString.Length > 1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Вводите не более одной буквы за раз!");
+                        continue;
+                    }
 
                     Console.Clear();
                     if(word.CheckLetter(inputString[0]))
@@ -51,11 +57,11 @@ namespace ConsoleApp1
 
                     Console.WriteLine(word.ViewWord);
                 }
+                Console.WriteLine("Конец");
+                Console.WriteLine("Жми \"ввод\" - продолжить");
+                Console.Read();
+                Console.Clear();
             }
-            Console.WriteLine("Конец");
-            Console.WriteLine("Жми \"ввод\" - продолжить");
-            Console.Read();
-            Console.Clear();
         }
     }
 }

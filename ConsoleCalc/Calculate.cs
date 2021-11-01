@@ -4,21 +4,77 @@ namespace ConsoleCalc
 {
     public class Calculate
     {
-        public double Init(string example)
+        public string Init(string example)
         {
             example = example.Replace('.', ',');
-            example = example.Substring(0, example.IndexOf('='));
+            if(example.Contains('='))                                                    //при наличии знака "=" в примере
+                example = example.Substring(0, example.IndexOf('='));     //удаляем его и все что правее
+
+            example = ParenthesisRecalculate(example);
             
-            double[] numArr = GetNumsArr(example);
-            char[] opsArr = GetOperators(example);
-            
-            return Calculation(numArr, opsArr);
+            return Calculation(example);
+        }
+
+        //пересчет выражений в скобках если они есть
+        private string ParenthesisRecalculate(string example)
+        {
+            //проверка наличия оператора перед скобкой, добавление "*" при его отсутствии
+            for (int i = 0; i < example.Length; i++)
+            {
+                if(i > 0)
+                    if (example[i] == '(' && !example[i - 1].IsOperator() && example[i - 1] != '(')
+                        example = example.Insert(i, "*");
+            }
+            //проверка наличия оператора после скобки, добавление "*" при его отсутствии
+            for (int i = 0; i < example.Length; i++)
+            {
+                if(i < example.Length - 1)
+                    if (example[i] == ')' && !example[i + 1].IsOperator() && example[i + 1] != ')')
+                        example = example.Insert(i, "*");
+            }
+            //пересчет выражение в скобках с права на лево, пока есть скобки
+            while (example.Contains('('))
+            {
+                int firstIndex = 0;
+                int secondIndex = 0;
+                
+                //поиск первой скобки (справа на лево)
+                for (int i = example.Length - 1; i > 0 ; i--)
+                {
+                    if (example[i] == '(')
+                    {
+                        firstIndex = i;
+                        break;
+                    }
+                }
+                //поиск второй (закрывающей скобки), добавлениее ее в конец при ее отсутствии
+                for (int i = firstIndex; i <= example.Length - 1; i++)
+                {
+                    if (example[i] == ')')
+                    {
+                        secondIndex = i;
+                        break;
+                    }
+                    else if (i == example.Length - 1)
+                    {
+                        example += ")";
+                        secondIndex = example.Length;
+                    }
+                }
+                //пересчет выражения в скобках и его замена в основном примере
+                string enternalExample = example.Substring(firstIndex + 1, secondIndex - firstIndex - 1);
+                string enternalExampleBuffer = enternalExample;
+                enternalExample = Calculation(enternalExample);
+                example = example.Replace($"({enternalExampleBuffer})", enternalExample);
+            }
+            return example;
         }
 
         //ужас ужасный, но работает
-        private double Calculation(double[] numArr, char[] opsArr)
+        private string Calculation(string example)
         {
-            char[] ops = new char[opsArr.Length];
+            double[] numArr = GetNumsArr(example);
+            char[] opsArr = GetOperators(example);
             
             string[] opsByPriority = Functions.opsList.Split(' ');
 
@@ -37,7 +93,7 @@ namespace ConsoleCalc
             //перебор списка операторов и их сортировка
             for (int i = 0; i < opsByPriority.Length; i++)
             {
-                for (int j = 0; j < ops.Length; j++)
+                for (int j = 0; j < opsArr.Length; j++)
                 {
                     foreach (var op in opsByPriority[i])
                     {
@@ -48,18 +104,15 @@ namespace ConsoleCalc
                     }
                 }
             }
-
-            ops = sortedOps.ToCharArray();
             
-            
-            //перебор примера в соответствии с отсортированным списком операторов
-            while(opsArr.Length > 0)
+            //перебор примера и его вычисление в соответствии с отсортированным списком операторов
+            while(opsArr.Length > 0) //выполняем пока колличество операторов в исходном порядке не станет равно нулю
             {
-                foreach (var VARIABLE in ops)
-                {
-                    for (int j = 0; j < opsArr.Length; j++)
-                    {
-                        if (opsArr[j] == VARIABLE)
+                foreach (var VARIABLE in sortedOps)             //перебор отсортированного массива операторов
+                {                                                    //и для каждого элемента отсортированного массива(строки)
+                    for (int j = 0; j < opsArr.Length; j++)          //перебор исходного массива операторов
+                    {                                                //и сравнение его с заданным в порядке сортировки
+                        if (opsArr[j] == VARIABLE)                   //и выполнение пересчета
                         {
                             switch (opsArr[j])
                             {
@@ -70,20 +123,26 @@ namespace ConsoleCalc
                                     numArr[j] = Multiply(numArr[j], numArr[j + 1]);
                                     break;
                                 case '/' :
-                                    numArr[j] = Divide(numArr[j], numArr[j + 1]);
+                                    if (numArr[j + 1] != 0)
+                                        numArr[j] = Divide(numArr[j], numArr[j + 1]);
+                                    else
+                                        return "Divide by zero exception!";
                                     break;
                                 case '^' :
-                                    numArr[j] = Involution(numArr[j], numArr[j + 1]);
+                                    if (numArr[j + 1] == 0)
+                                        numArr[j] = 1;
+                                    else
+                                        numArr[j] = Involution(numArr[j], numArr[j + 1]);
                                     break;
                             }
-                            numArr = numArr.RemoveAt(j + 1);
-                            opsArr = opsArr.RemoveAt(j);
+                            numArr = numArr.RemoveAt(j + 1);    //удаление второго числа операции
+                            opsArr = opsArr.RemoveAt(j);              //удаление расчитанного оператора
                         }
                     }
                 }
                 
             }
-            return numArr[0];
+            return numArr[0].ToString();
         }
         private char[] GetOperators(string example)
         {

@@ -44,7 +44,7 @@ namespace ConsoleApp1
                         continue;
 
                     }
-                    
+
                     Console.Clear();
                     if(word.CheckLetter(inputString[0]))
 
@@ -59,9 +59,6 @@ namespace ConsoleApp1
                     }
 
                     Console.WriteLine(word.ViewWord);
-
-                    
-
 
                 }
 
@@ -85,9 +82,6 @@ namespace ConsoleApp1
 
             Console.Read();
             Console.Clear();
-
-            
-
 
         }
     }

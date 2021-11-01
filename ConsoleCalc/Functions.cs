@@ -4,6 +4,8 @@ namespace ConsoleCalc
 {
     public static class Functions
     {
+        //Operators array with priority, separated by a space
+        public static string opsList = "^ */ +-";
         //remove Array element at index
         public static T[] RemoveAt<T>(this T[] source, int index)
         {
@@ -19,7 +21,15 @@ namespace ConsoleCalc
         //Check for operator
         public static bool IsOperator<T>(this T source)
         {
-            char[] operators = {'+', '-', '*', '/',};
+            string ops = opsList;
+            
+            while (ops.Contains(' '))
+            {
+                ops = ops.Remove(ops.IndexOf(' '), 1);
+            }
+            
+            char[] operators = ops.ToCharArray();
+            
             foreach (var VARIABLE in operators)
             {
                 if (source.ToString()[0] == VARIABLE)
@@ -28,12 +38,12 @@ namespace ConsoleCalc
             return false;
         }
         
+        //optional methods (used only when entering values)
         public static bool ConatainOperators(this string source)
         {
             char[] chars = source.ToCharArray();
             return ConatainOperators(chars);
         }
-
         public static bool ConatainOperators<T>(this T[] source)
         {
             foreach (var VARIABLE in source)
@@ -43,7 +53,6 @@ namespace ConsoleCalc
             }
             return false;
         }
-
         public static string WaitForEqualsSign(string firstEnter)
         {
             string enter = firstEnter;
@@ -54,6 +63,7 @@ namespace ConsoleCalc
                 enterCache = Console.ReadLine();
                 enter += enterCache;
             } while (!enterCache.Contains('='));
+            
             
             return enter;
         }

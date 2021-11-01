@@ -7,18 +7,24 @@ namespace ConsoleCalc
         public double Init(string example)
         {
             example = example.Replace('.', ',');
-            example = example.Replace('=', ' ');
+            example = example.Substring(0, example.IndexOf('='));
             
             double[] numArr = GetNumsArr(example);
             char[] opsArr = GetOperators(example);
-
-            var exampleTuple = CorrectArrays(numArr, opsArr);
             
-            return Calculation(exampleTuple.Item1, exampleTuple.Item2);
+            return Calculation(numArr, opsArr);
         }
 
-        private Tuple<double[], char[]> CorrectArrays(double[] numArr, char[] opsArr)
+        //ужас ужасный, но работает
+        private double Calculation(double[] numArr, char[] opsArr)
         {
+            char[] ops = new char[opsArr.Length];
+            
+            string[] opsByPriority = Functions.opsList.Split(' ');
+
+            string sortedOps = "";
+            
+            //замена всех минусов на плюсы
             for (int i = 0; i < opsArr.Length; i++)
             {
                 if (opsArr[i] == '-')
@@ -27,51 +33,26 @@ namespace ConsoleCalc
                     opsArr[i] = '+';
                 }
             }
-            return Tuple.Create<double[], char[]>(numArr, opsArr);
-        }
-
-        //ужас ужасный, но работает
-        private double Calculation(double[] numArr, char[] opsArr)
-        {
-            char[] ops = new char[opsArr.Length];
-            char[] greaterOps = {'*', '/'};
-
-            //заполняем пустой массив #
-            for (int j = 0; j < ops.Length; j++)
-            {
-                ops[j] = '#';
-            }
-            //отсеиваем высшие операторы
-            for (int j = 0; j < ops.Length; j++)
-            {
-                foreach (var VARIABLE in greaterOps)
-                {
-                    if (opsArr[j] == VARIABLE)
-                    {
-                        ops[j] = opsArr[j];
-                    }
-                }
-            }
-            //сдвигаем высшие операторы вперед
-            for (int i = 0; i < 600; i++)
-            {
-                for (int j = 0; j < ops.Length - 1; j++)
-                {
-                    if (ops[j] == '#')
-                    {
-                        ops[j] = ops[j + 1];
-                        ops[j + 1] = '#';
-                    }
-                }
-            }
-            for (int j = 0; j < ops.Length; j++)
-            {
-                if (ops[j] == '#')
-                {
-                    ops[j] = '+';
-                }
-            }
             
+            //перебор списка операторов и их сортировка
+            for (int i = 0; i < opsByPriority.Length; i++)
+            {
+                for (int j = 0; j < ops.Length; j++)
+                {
+                    foreach (var op in opsByPriority[i])
+                    {
+                        if (opsArr[j] == op)
+                        {
+                            sortedOps += opsArr[j].ToString();
+                        }
+                    }
+                }
+            }
+
+            ops = sortedOps.ToCharArray();
+            
+            
+            //перебор примера в соответствии с отсортированным списком операторов
             while(opsArr.Length > 0)
             {
                 foreach (var VARIABLE in ops)
@@ -91,28 +72,15 @@ namespace ConsoleCalc
                                 case '/' :
                                     numArr[j] = Divide(numArr[j], numArr[j + 1]);
                                     break;
+                                case '^' :
+                                    numArr[j] = Involution(numArr[j], numArr[j + 1]);
+                                    break;
                             }
                             numArr = numArr.RemoveAt(j + 1);
                             opsArr = opsArr.RemoveAt(j);
                         }
                     }
                 }
-                /*
-                switch (opsArr[i])
-                {
-                    case '+' :
-                        numArr[i] = Add(numArr[i], numArr[i + 1]);
-                        break;
-                    case '*' :
-                        numArr[i] = Multiply(numArr[i], numArr[i + 1]);
-                        break;
-                    case '/' :
-                        numArr[i] = Divide(numArr[i], numArr[i + 1]);
-                        break;
-                }
-                */
-                //numArr = numArr.RemoveAt(i + 1);
-                //opsArr = opsArr.RemoveAt(i);
                 
             }
             return numArr[0];
@@ -139,7 +107,14 @@ namespace ConsoleCalc
         }
         private double[] GetNumsArr(string example)
         {
-            char[] operators = {'+', '-', '*', '/',};
+            string ops = Functions.opsList;
+            
+            while (ops.Contains(' '))
+            {
+                ops = ops.Remove(ops.IndexOf(' '), 1);
+            }
+            
+            char[] operators = ops.ToCharArray();
             string[] exampleArr;
 
 
@@ -167,15 +142,13 @@ namespace ConsoleCalc
                 
             }
 
-            /*
             if (errors > 0)
             {
                 var consoleColorBuffer = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Enter only numbers & operators\nIncorrect input replace to \'0\' \nReplaced {errors} elements!");
+                Console.WriteLine($"Replaced to \'0\': {errors} elements!");
                 Console.ForegroundColor = consoleColorBuffer;
             }
-            */
             
             return numsArr;
         }
@@ -190,6 +163,15 @@ namespace ConsoleCalc
         private double Divide(double first, double second)
         {
             return first / second;
+        }
+        private double Involution(double figure, double rate)
+        {
+            double figureCache = figure;
+            for (int i = 1; i < rate; i++)
+            {
+                figure = figure * figureCache;
+            }
+            return figure;
         }
     }
 }

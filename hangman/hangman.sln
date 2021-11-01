@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hangman_game", "hangman_gam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator1", "Calculator1\Calculator1.csproj", "{362566F7-7CFC-40D5-98B0-0291FCD3B9F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator2", "Calculator2\Calculator2.csproj", "{A714100B-5DC4-469D-A7E7-15C473D722FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{362566F7-7CFC-40D5-98B0-0291FCD3B9F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{362566F7-7CFC-40D5-98B0-0291FCD3B9F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{362566F7-7CFC-40D5-98B0-0291FCD3B9F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A714100B-5DC4-469D-A7E7-15C473D722FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A714100B-5DC4-469D-A7E7-15C473D722FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A714100B-5DC4-469D-A7E7-15C473D722FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A714100B-5DC4-469D-A7E7-15C473D722FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

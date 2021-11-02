@@ -16,41 +16,39 @@ namespace ConsoleCalc
                                  "Features:\n" +
                                  "All words/letters will be equal to zero\n" +
                                  "\'.. + + ..\' is equal to \'.. + 0 + ..\'\n\n" +
-                                 "Press any key to start";
+                                 "Press any key to start\nESC to exit";
             var consoleColorBuffer = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(description);
             Console.ForegroundColor = consoleColorBuffer;
-            Console.ReadKey();
-            Console.Clear();
-
-            while (true)
-            {
-                Console.WriteLine("Enter your example: ");
-                string example = Console.ReadLine();
-                
-                if (!example.ConatainOperators())
+            
+            if(Console.ReadKey().Key != ConsoleKey.Escape)
+                while (true)
                 {
                     Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine("Input via ENTER mode!");
-                    Console.ForegroundColor = consoleColorBuffer;
-                    Console.WriteLine(example);
-                    example = Functions.WaitForEqualsSign(example);
-                    Console.Clear();
-                    Console.WriteLine($"You\'r example: \n{example}");
-                    Console.WriteLine("Answer: " + _calculate.Init(example));
-                }
-                else
-                    Console.WriteLine("Answer: " + _calculate.Init(example));
+                    Console.WriteLine("Enter your example: ");
+                    string example = Console.ReadLine();
                     
-                //program exit
-                Console.WriteLine("\nESC to exit\nAny key to repeat");
-                if(Console.ReadKey().Key == ConsoleKey.Escape)
-                    break;
-                else
-                    Console.Clear();
-            }
+                    if (!example.ConatainOperators())
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine("Input via ENTER mode!");
+                        Console.ForegroundColor = consoleColorBuffer;
+                        Console.WriteLine(example);
+                        example = Functions.WaitForEqualsSign(example);
+                        Console.Clear();
+                        Console.WriteLine($"You\'r example: \n{example}");
+                        Console.WriteLine("Answer: " + _calculate.Init(example));
+                    }
+                    else
+                        Console.WriteLine("Answer: " + _calculate.Init(example));
+                        
+                    //program exit
+                    Console.WriteLine("\nESC to exit\nAny key to repeat");
+                    if(Console.ReadKey().Key == ConsoleKey.Escape)
+                        break;
+                }
         }
     }
 }

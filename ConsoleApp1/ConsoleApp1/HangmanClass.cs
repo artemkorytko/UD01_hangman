@@ -68,5 +68,9 @@ namespace ConsoleApp1
             }
             return isLetterExist;
         }
+        public void ClearList()
+        {
+            letterIsopen.Clear();
+        }
     }
 }

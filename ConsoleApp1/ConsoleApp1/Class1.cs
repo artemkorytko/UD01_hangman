@@ -64,7 +64,7 @@ namespace ConsoleApp1
 
                     Console.WriteLine(word.ViewWord);
                 }
-
+                
                 if (errors > 0)
                 {
                     Console.Clear();
@@ -75,6 +75,7 @@ namespace ConsoleApp1
                     Console.Clear();
                     Console.WriteLine("Поражение :_(");
                 }
+                word.ClearList();
                 Console.WriteLine("\"д\" - продолжить, \"н\" - выход");
                 string endgame = Console.ReadLine();
                 switch (endgame)

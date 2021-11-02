@@ -128,7 +128,7 @@ namespace ConsoleCalc
                                     numArr[j] = Divide(numArr[j], numArr[j + 1]);
                                     break;
                                 case '^' :
-                                        numArr[j] = Involution(numArr[j], numArr[j + 1]);
+                                    numArr[j] = Involution(numArr[j], numArr[j + 1]);
                                     break;
                             }
                             numArr = numArr.RemoveAt(j + 1);    //удаление второго числа операции
@@ -213,18 +213,7 @@ namespace ConsoleCalc
         }
         private double Involution(double figure, double rate)
         {
-            if (rate == 0)
-                return 1;
-            
-            if (rate > 0 && rate < 1)
-                return Math.Pow(figure, rate);
-            
-            double figureCache = figure;
-            for (int i = 1; i < rate; i++)
-            {
-                figure = figure * figureCache;
-            }
-            return figure;
+            return Math.Pow(figure, rate);
         }
     }
 }

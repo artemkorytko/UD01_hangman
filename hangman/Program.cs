@@ -10,6 +10,24 @@ namespace ConsoleApp1
         private const int maxErrors = 30;
         static void Main(string[] args)
         {
+            StruckA struckA = new StruckA();
+            struckA.ValueA = 5;
+            ClassA a = new ClassA();
+            a.valueA = 1;
+            ClassB b = new ClassB();
+            b.valueB = 3;
+            ClassC c = new ClassC();
+            c.classA = a;
+            c.classB = b;
+            c.struckA = struckA;
+
+            Console.WriteLine($"{c.classA.valueA} + {c.classB.valueB} + {c.struckA.ValueA}");
+            c.classB.valueB = 15;
+            c.struckA.ValueA = 20;
+
+            Console.WriteLine(b.valueB);
+            Console.WriteLine(struckA.ValueA);
+            Console.WriteLine(c.struckA.ValueA);
             Console.WriteLine("Hello! Let's play game!");
 
             handclass word = new handclass(path);
@@ -27,7 +45,8 @@ namespace ConsoleApp1
 
                 {
                     Console.WriteLine("Введите букву");
-                    string inputString = Console.ReadLine().ToLower();
+                    string inputString = Console.ReadLine();
+                    inputString = inputString.ToLower();
 
                     if (inputString.Length == 0 || !Char.IsLetter(inputString[0]))
                     {

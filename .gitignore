@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-hangman/FieldOfMiracle/[Ll]ibrary/
-hangman/FieldOfMiracle//[Tt]emp/
-hangman/FieldOfMiracle//[Oo]bj/
-hangman/FieldOfMiracle//[Bb]uild/
-hangman/FieldOfMiracle//[Bb]uilds/
-hangman/FieldOfMiracle//[Ll]ogs/
-hangman/FieldOfMiracle//[Mm]emoryCaptures/
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+//[Bb]uild/
+//[Bb]uilds/
+//[Ll]ogs/
+//[Mm]emoryCaptures/
 hangman/FieldOfMiracle//.idea/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored

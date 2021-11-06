@@ -14,5 +14,6 @@ public class GameManager : MonoBehaviour
         var file = Resources.Load<TextAsset>(text_path);
         var text = file.text;
         string[] allWords = File.ReadAllLines(text);
+        Debug.Log("Дима лох");
     }
 }

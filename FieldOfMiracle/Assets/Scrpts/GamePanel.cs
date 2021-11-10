@@ -3,19 +3,8 @@ using UnityEngine;
 
 namespace Assets.Scrpts
 {
-    public class GamePanel : MonoBehaviour
+    public class GamePanel : BasePanel
     {
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        
     }
 }

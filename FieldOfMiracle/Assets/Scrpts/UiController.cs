@@ -1,45 +1,51 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scrpts
+public class UiController : MonoBehaviour
 {
-    public class UiController : MonoBehaviour
+    private MenuPanel menuPanel;
+    private GamePanel gamePanel;
+    private FailPanel failPanel;
+    private WinPanel winPanel;
+
+    private BasePanel currentPanel;
+
+    private void Awake()
     {
-        private MenuPanel menuPanel;
-        private GamePanel gamePanel;
-        private FailPanel failPanel;
-        private WinPanel winPanel;
+        menuPanel = FindObjectOfType<MenuPanel>(true);
+        gamePanel = FindObjectOfType<GamePanel>(true);
+        failPanel = FindObjectOfType<FailPanel>(true);
+        winPanel = FindObjectOfType<WinPanel>(true);
+        currentPanel = null;
+    }
 
-        private BasePanel currentPanel;
+    public void OnMenuState()
+    {
+        currentPanel?.Close();
+        menuPanel.Open();
+        currentPanel = menuPanel;
+    }
 
-        private void Awake()
-        {
-            menuPanel = FindObjectOfType<MenuPanel>(true);
-            gamePanel = FindObjectOfType<GamePanel>(true);
-            winPanel = FindObjectOfType<WinPanel>(true);
-            failPanel = FindObjectOfType<FailPanel>(true);
-            currentPanel = null;
-        }
+    public void OnGameState()
+    {
+        currentPanel?.Close();
+        gamePanel.Open();
+        currentPanel = gamePanel;
+    }
 
-        public void OnMenuState()
-        {
-            currentPanel?.Close();
-            menuPanel.Open();
-        }
-        public void OnGameState()
-        {
-            currentPanel?.Close();
-            gamePanel.Open();
-        }
-        public void OnWinState()
-        {
-            currentPanel?.Close();
-            winPanel.Open();           
-        }
-        public void OnFailState()
-        {
-            currentPanel?.Close();
-            failPanel.Open();
-        }
+    public void OnWinState()
+    {
+        currentPanel?.Close();
+        winPanel.Open();
+        currentPanel = winPanel;
+    }
+
+    public void OnFailState()
+    {
+        currentPanel?.Close();
+        failPanel.Open();
+        currentPanel = failPanel;
     }
 }

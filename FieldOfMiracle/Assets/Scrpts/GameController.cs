@@ -1,39 +1,53 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class GameController : IGameController
 {
     private int openLettersCount;
     private char[] wordChars;
-    private char[] openChars;
     private List<char> inputLetters;
+    private int changeCount;
 
-    public bool IsCompleted => openLettersCount == wordChars.Length;
+    public bool IsCompleted => openLettersCount == wordChars.Length - 1;
+
+    public bool IsFall => changeCount == 0;
 
     public char[] ShowenWord => wordChars;
 
-    public bool CheckInputLetter(char letter)
-    {
-       if (!Char.IsLetter(letter)||)
-        inputLetters.Add(letter);
-        bool isLetterExist = false;
-        for (int i = 0; i < wordChars.Length; i++)
-        {
-            if (wordChars[i] == letter)
-            {
-                openChars[i] = letter;
-                return true;
-            }
-        }
-        return isLetterExist ? true : false;
-    }
+    public int ChanceCount => changeCount;
+
+    public bool IsFail => throw new NotImplementedException();
 
     public void Init(string word)
     {
         wordChars = word.ToCharArray();
         inputLetters = new List<char>();
         openLettersCount = 0;
+        changeCount = 10;
+    }
+
+    public bool CheckInputLetter(char letter)
+    {
+        if (!Char.IsLetter(letter) || inputLetters.Contains(letter))
+        {
+            return false;
+        }
+
+        inputLetters.Add(letter);
+        bool isLetterExist = false;
+        for (int i = 0; i < wordChars.Length; i++)
+        {
+            if (wordChars[i] == letter)
+            {
+                openLettersCount++;
+                isLetterExist = true;
+            }
+        }
+        if (!isLetterExist)
+        {
+            changeCount--;
+        }
+
+        return isLetterExist ? true : false;
     }
 }

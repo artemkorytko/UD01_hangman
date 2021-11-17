@@ -1,6 +1,7 @@
-using UnityEngine;
-using System.IO;
 using Assets.Scrpts;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,23 +11,21 @@ public class GameManager : MonoBehaviour
 
     private string[] allWords;
 
-    public string[] AllWords => AllWords;
-
     private GameState gameState;
 
     private UiController uiController;
 
-    private IGameController gameController;
+    public IGameController gameController { get; private set; }
 
     public GameState GameState
     {
         get
         {
-            return GameState;
+            return gameState;
         }
         set
         {
-            if (GameState == value) return;
+            if (gameState == value) return;
 
             gameState = value;
 
@@ -42,57 +41,70 @@ public class GameManager : MonoBehaviour
                     OnWinState();
                     break;
                 case GameState.Fail:
-                    OnFailState();
+                    OnFallState();
                     break;
                 default:
-                    Debug.LogError("WrongState");
+                    Debug.LogError("Wrong state");
                     break;
             }
         }
     }
-
-
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        else 
+        else
         {
             Destroy(gameObject);
             return;
         }
+
         var file = Resources.Load<TextAsset>(text_path);
         var text = file.text;
+
         allWords = text.Split('\n');
         uiController = FindObjectOfType<UiController>();
     }
-    public void OnFailState()
+
+    private void Start()
     {
-        uiController.OnFailState();
+        GameState = GameState.Menu;
     }
 
-    public void OnWinState()
+    private void OnMenuState()
+    {
+        uiController.OnMenuState();
+    }
+
+    private void OnGameState()
+    {
+        gameController = new GameController();
+        gameController.Init(allWords[Random.Range(0, allWords.Length)]);
+        uiController.OnGameState();
+    }
+
+    private void OnWinState()
     {
         uiController.OnWinState();
     }
 
-    public void OnGameState()
+    private void OnFallState()
     {
-        gameController = new GameController();
-        gameController.Init(allWords[Random.Range(0, allWords.Length)]); 
-        uiController.OnGameState();
-    }
-
-    public void OnMenuState()
-    {
-        uiController.OnMenuState();
+        uiController.OnFailState();
     }
 
     public void ChangeGameState(GameState state)
     {
         GameState = state;
     }
+
+    public IGameController GetGameController()
+    {
+        return gameController;
+    }
+
 }

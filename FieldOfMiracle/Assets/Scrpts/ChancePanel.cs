@@ -1,21 +1,14 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
-namespace Assets.Scrpts
+using TMPro;
+public class ChancePanel : MonoBehaviour
 {
-    public class ChancePanel : MonoBehaviour
+
+    public void UpdateChanceText()
     {
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        var gameController = GameManager.Instance.GetGameController();
+        GetComponent<TextMeshProUGUI>().text = $"Chance: {gameController.ChanceCount}";
     }
+
 }

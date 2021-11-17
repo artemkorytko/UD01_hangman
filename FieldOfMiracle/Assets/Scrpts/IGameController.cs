@@ -8,4 +8,6 @@ public interface IGameController
     bool CheckInputLetter(char letter);
     bool IsCompleted { get; }
     char[] ShowenWord { get; }
+    bool IsFail { get; }
+    int ChanceCount { get; }
 }
